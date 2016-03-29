@@ -7,9 +7,18 @@ public class Flags : MonoBehaviour {
 
     public GameObject[] flagAnwsers;
     public string[] flagArray;
+
+    public Sprite[] allFlags;
     
 	// Use this for initialization
 	void Start () {
+        Object[] imports = Resources.LoadAll.<Sprite>("/Sprites");
+
+        allFlags = new Sprite[allFlags.Length];
+        
+        for (var i = 0 ; i < allFlags.Length; i++){
+            allFlags[i] = imports[i];
+        }
         //sorts them wierdly :p 3,4,1,2?? :P
         //flagAnwsers = GameObject.FindGameObjectsWithTag("Flag");
 
