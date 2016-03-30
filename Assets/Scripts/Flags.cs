@@ -3,20 +3,19 @@ using System.Collections;
 using System.Linq; //Needed??
 
 public class Flags : MonoBehaviour {
-
+    
 
     public GameObject[] flagAnwsers;
-    public string[] flagArray;
-
+    public string[] flagNameArray;
     public Sprite[] allFlags;
-    
+   
 	// Use this for initialization
 	void Start () {
-        Object[] imports = Resources.LoadAll.<Sprite>("/Sprites");
+	    Object[] imports = (Sprite[]); Resources.LoadAll("Assets/Sprites/*.png");
 
         allFlags = new Sprite[allFlags.Length];
         
-        for (var i = 0 ; i < allFlags.Length; i++){
+        for (var i = 0 ; i < allFlags.Length; i++) {
             allFlags[i] = imports[i];
         }
         //sorts them wierdly :p 3,4,1,2?? :P
@@ -30,6 +29,6 @@ public class Flags : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }
