@@ -43,6 +43,9 @@ public class Flags : MonoBehaviour {
     
     void PlaceFlags() {
 
+        True.SetActive(false);
+        False.SetActive(false);
+
         for (int i = 0; i < flagButton.Length; i++)
         {
             //Flag indexes, tells us which flags we have in our questions
@@ -76,16 +79,19 @@ public class Flags : MonoBehaviour {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
             True.SetActive(true);
             StartCoroutine(FlagTimer());
-            True.SetActive(false);
+            Debug.Log("I was enabled " + True.activeInHierarchy);
+            //True.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
         }
         else
         {
+            Debug.Log("Wrong Flag! Correct flag was " + flagNameArray[flagCheck[CorrectFlag]]);
             False.SetActive(true);
+            Debug.Log("I was enabled " + False.activeInHierarchy);
             StartCoroutine(FlagTimer());
-            False.SetActive(false);
+            //False.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
@@ -98,16 +104,19 @@ public class Flags : MonoBehaviour {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
             True.SetActive(true);
             StartCoroutine(FlagTimer());
-            True.SetActive(false);
+            Debug.Log("I was enabled " + True.activeInHierarchy);
+            //True.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
         }
         else
         {
+            Debug.Log("Wrong Flag! Correct flag was " + flagNameArray[flagCheck[CorrectFlag]]);
             False.SetActive(true);
+            Debug.Log("I was enabled " + False.activeInHierarchy);
             StartCoroutine(FlagTimer());
-            False.SetActive(false);
+            //False.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
@@ -120,16 +129,19 @@ public class Flags : MonoBehaviour {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
             True.SetActive(true);
             StartCoroutine(FlagTimer());
-            True.SetActive(false);
+            Debug.Log("I was enabled " + True.activeInHierarchy);
+            //True.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
         }
         else
         {
+            Debug.Log("Wrong Flag! Correct flag was " + flagNameArray[flagCheck[CorrectFlag]]);
             False.SetActive(true);
+            Debug.Log("I was enabled " + False.activeInHierarchy);
             StartCoroutine(FlagTimer());
-            False.SetActive(false);
+            //False.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
@@ -142,16 +154,19 @@ public class Flags : MonoBehaviour {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
             True.SetActive(true);
             StartCoroutine(FlagTimer());
-            True.SetActive(false);
+            Debug.Log("I was enabled " + True.activeInHierarchy);
+            //True.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
         }
         else
         {
+            Debug.Log("Wrong Flag! Correct flag was " + flagNameArray[flagCheck[CorrectFlag]]);
             False.SetActive(true);
+            Debug.Log("I was enabled " + False.activeInHierarchy);
             StartCoroutine(FlagTimer());
-            False.SetActive(false);
+            //False.SetActive(false);
             flagCheck.Clear();
             PlaceFlags();
             StopCoroutine(FlagTimer());
