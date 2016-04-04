@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine.UI;
 
 public class Flags : MonoBehaviour {
 
     public GameObject[] flagButton; //Makes a box in Unity Editor so we can drag and drop the elemen we need
+    public GameObject showAnwser;
     public string[] flagNameArray; //Visual array to check the county names are loaded correctly
     public Sprite[] allFlags; //Visual array to check the flags are loaded correctly
     public Text QuestionText; //Makes a box in Unity Editor so we can drag and drop the element we need
@@ -64,7 +66,8 @@ public class Flags : MonoBehaviour {
 
         CorrectFlag = Random.Range(0, 4);
         //Random flag index
-        QuestionText.text = "Which flag is "+flagNameArray[flagCheck[CorrectFlag]]+"s?";
+        //QuestionText.text = "Which flag is "+flagNameArray[flagCheck[CorrectFlag]]+"s?";
+        QuestionText.text = flagNameArray[flagCheck[CorrectFlag]];
     }
 
     IEnumerator FlagTimer(){
@@ -171,5 +174,33 @@ public class Flags : MonoBehaviour {
             PlaceFlags();
             StopCoroutine(FlagTimer());
         }
+    }
+
+    /*public void CheatButton()
+    {
+        Outline the correct flag button
+        flagButton[flagNameArray[flagCheck[CorrectFlag]]].GetComponent<Image>().sprite = Outline THE IMAGE
+
+    }*/
+
+    public static void SaveToFile() {
+        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "anwsers.txt");
+
+        sw.WriteLine("Generated table of 1 to 10");
+        sw.WriteLine("");
+
+        for (int i = 1; i <= 10; i++)
+        {
+            for (int j = 1; j <= 10; j++)
+            {
+                sw.WriteLine("{0}x{1}= {2}", i, j, (i * j));
+            }
+
+            sw.WriteLine("====================================");
+        }
+
+        sw.WriteLine("Table successfully written to file!");
+
+        sw.Close();
     }
 }
