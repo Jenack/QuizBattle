@@ -176,12 +176,12 @@ public class Flags : MonoBehaviour {
         }
     }
 
-    /*public void CheatButton()
-    {
-        Outline the correct flag button
-        flagButton[flagNameArray[flagCheck[CorrectFlag]]].GetComponent<Image>().sprite = Outline THE IMAGE
+    public void CheatButton() {
+        /*Outline the correct flag button
+        flagButton[flagNameArray[flagCheck[CorrectFlag]]].GetComponent<Image>().sprite = Outline THE IMAGE*/
+        Debug.Log("Slider value is " + MaterialUI.SliderConfig().slider.value);
 
-    }*/
+    }
 
     public static void SaveToFile() {
         StreamWriter sw = new StreamWriter(Application.persistentDataPath + "anwsers.txt");
