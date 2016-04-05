@@ -12,11 +12,19 @@ public class Flags : MonoBehaviour
     public string[] flagNameArray; //Visual array to check the county names are loaded correctly
     public Sprite[] allFlags; //Visual array to check the flags are loaded correctly
     public Text QuestionText; //Makes a box in Unity Editor so we can drag and drop the element we need
+    
     public GameObject True;
     public GameObject False;
+    
+    public Text ScoreText;
+    private int flagScore;
+
+    public Text QuestionCounter;
+    private int totalAnwseredQuestion = 1;
 
     private List<int> flagCheck = new List<int>(); //Creates a list for the purpose of tracking our randomly selected flags, to make sure that a flag can only be selected once
     private int CorrectFlag;
+    
 
     // Use this for initialization
     void Start()
@@ -26,6 +34,17 @@ public class Flags : MonoBehaviour
         PlaceFlags();
         //SaveToFile();
     }
+
+    void Score() {
+        flagScore += 1;
+        ScoreText.text = "Score: "+flagScore.ToString();
+    }
+
+    void Question() {
+        totalAnwseredQuestion += 1;
+        QuestionCounter.text = "Question "+totalAnwseredQuestion.ToString();
+    }
+
 
     //Function to load a text file which contains the countries of the flags we have
     void LoadCountries()
@@ -82,6 +101,15 @@ public class Flags : MonoBehaviour
         True.SetActive(wasItCorrect);
         False.SetActive(!wasItCorrect);
         yield return new WaitForSeconds(2);
+
+        if (wasItCorrect) {
+            Score();
+            Question();
+        }
+        else {
+            Question();
+        }
+
         flagCheck.Clear();
         PlaceFlags();
         StopCoroutine(FlagTimer(wasItCorrect));
