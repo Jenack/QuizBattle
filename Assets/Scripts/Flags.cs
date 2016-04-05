@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 
-public class Flags : MonoBehaviour
-{
+public class Flags : MonoBehaviour {
 
     public GameObject[] flagButton; //Makes a box in Unity Editor so we can drag and drop the elemen we need
-    public GameObject showAnwser;
     public string[] flagNameArray; //Visual array to check the county names are loaded correctly
     public Sprite[] allFlags; //Visual array to check the flags are loaded correctly
     public Text QuestionText; //Makes a box in Unity Editor so we can drag and drop the element we need
@@ -19,12 +17,18 @@ public class Flags : MonoBehaviour
     public Text ScoreText;
     private int flagScore;
 
+    public GameObject showAnwser;
+    private int showAnwserClicked;
+
     public Text QuestionCounter;
     private int totalAnwseredQuestion = 1;
 
     private List<int> flagCheck = new List<int>(); //Creates a list for the purpose of tracking our randomly selected flags, to make sure that a flag can only be selected once
     private int CorrectFlag;
-    
+
+    public GameObject ConationCanvas;
+    public GameObject ConationSubmit;
+    public Slider ConationSlider;
 
     // Use this for initialization
     void Start()
@@ -32,7 +36,6 @@ public class Flags : MonoBehaviour
         LoadFlags();
         LoadCountries();
         PlaceFlags();
-        //SaveToFile();
     }
 
     void Score() {
@@ -45,17 +48,20 @@ public class Flags : MonoBehaviour
         QuestionCounter.text = "Question "+totalAnwseredQuestion.ToString();
     }
 
+    void Questionnaire() {
+        if (totalAnwseredQuestion%10 == 0)
+            ConationCanvas.SetActive(true);
+    }
+
 
     //Function to load a text file which contains the countries of the flags we have
-    void LoadCountries()
-    {
+    void LoadCountries() {
         TextAsset textFile = Resources.Load("Countries") as TextAsset;
         //Debug.Log(textFile); //Used to debug if file loaded or not 
         flagNameArray = textFile.text.Split('\n');
     }
 
-    void LoadFlags()
-    {
+    void LoadFlags() {
         //Load the Sprites folder from the Resources folder
         Sprite[] imports = Resources.LoadAll<Sprite>("Sprites");
         //Array to store the flag sprites
@@ -67,14 +73,12 @@ public class Flags : MonoBehaviour
         }
     }
 
-    void PlaceFlags()
-    {
+    void PlaceFlags() {
 
         True.SetActive(false);
         False.SetActive(false);
 
-        for (int i = 0; i < flagButton.Length; i++)
-        {
+        for (int i = 0; i < flagButton.Length; i++) {
             //Flag indexes, tells us which flags we have in our questions
             int randomFlagIndex = Random.Range(0, allFlags.Length);
             while (flagCheck.Contains(randomFlagIndex))
@@ -96,8 +100,7 @@ public class Flags : MonoBehaviour
         QuestionText.text = flagNameArray[flagCheck[CorrectFlag]];
     }
 
-    IEnumerator FlagTimer(bool wasItCorrect)
-    {
+    IEnumerator FlagTimer(bool wasItCorrect) {
         True.SetActive(wasItCorrect);
         False.SetActive(!wasItCorrect);
         yield return new WaitForSeconds(2);
@@ -106,17 +109,17 @@ public class Flags : MonoBehaviour
             Score();
             Question();
         }
-        else {
+        else
+        {
             Question();
         }
-
+        Questionnaire();
         flagCheck.Clear();
         PlaceFlags();
         StopCoroutine(FlagTimer(wasItCorrect));
     }
 
-    public void ClickFlag1()
-    {
+    public void ClickFlag1() {
         if (CorrectFlag == 0)
         {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
@@ -129,8 +132,7 @@ public class Flags : MonoBehaviour
         }
     }
 
-    public void ClickFlag2()
-    {
+    public void ClickFlag2() {
         if (CorrectFlag == 1)
         {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
@@ -143,8 +145,7 @@ public class Flags : MonoBehaviour
         }
     }
 
-    public void ClickFlag3()
-    {
+    public void ClickFlag3() {
         if (CorrectFlag == 2)
         {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
@@ -157,8 +158,7 @@ public class Flags : MonoBehaviour
         }
     }
 
-    public void ClickFlag4()
-    {
+    public void ClickFlag4() {
         if (CorrectFlag == 3)
         {
             Debug.Log("Correct Flag " + flagNameArray[flagCheck[CorrectFlag]]);
@@ -171,10 +171,8 @@ public class Flags : MonoBehaviour
         }
     }
 
-    IEnumerator cheatTimer()
-    {
-        for (int i = 0; i < 4; i++)
-        {
+    IEnumerator cheatTimer() {
+        for (int i = 0; i < 4; i++) {
             if (i != CorrectFlag)
             {
                 flagButton[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
@@ -183,8 +181,7 @@ public class Flags : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
 
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             if (i != CorrectFlag)
             {
                 flagButton[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
@@ -193,13 +190,18 @@ public class Flags : MonoBehaviour
     }
 
 
-    public void CheatButton()
-    {
+    public void CheatButton() {
         StartCoroutine(cheatTimer());
+        showAnwserClicked += 1;
+        Debug.Log(showAnwserClicked);
     }
 
-    public static void SaveToFile()
-    {
+    public void submitButton() {
+        ConationCanvas.SetActive(false);
+        Debug.Log(ConationSlider.value);
+    }
+
+    public static void SaveToFile() {
         StreamWriter sw = new StreamWriter(Application.persistentDataPath + "anwsers.txt");
 
         sw.WriteLine("Generated table of 1 to 10");
