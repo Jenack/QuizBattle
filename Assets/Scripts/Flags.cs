@@ -13,6 +13,7 @@ public class Flags : MonoBehaviour {
     
     public GameObject True;
     public GameObject False;
+    public GameObject BlockInput;
     
     public Text ScoreText;
     private int flagScore;
@@ -75,6 +76,7 @@ public class Flags : MonoBehaviour {
 
     void PlaceFlags() {
 
+        BlockInput.SetActive(false);
         True.SetActive(false);
         False.SetActive(false);
 
@@ -101,6 +103,7 @@ public class Flags : MonoBehaviour {
     }
 
     IEnumerator FlagTimer(bool wasItCorrect) {
+        BlockInput.SetActive(true);
         True.SetActive(wasItCorrect);
         False.SetActive(!wasItCorrect);
         yield return new WaitForSeconds(2);
