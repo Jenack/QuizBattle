@@ -15,7 +15,7 @@ public class Flags : MonoBehaviour {
     public GameObject False;
     public GameObject BlockInput;
     
-    public Text ScoreText;
+    public Text ScoreText; //The gameobject for the 
     private int flagScore;
 
     public GameObject showAnwser;
@@ -30,10 +30,12 @@ public class Flags : MonoBehaviour {
     public GameObject ConationCanvas;
     public GameObject ConationSubmit;
     public Slider ConationSlider;
+    public GameObject ExitGame;
+    List<int> sliderValue = new List<int>();
+    private static string DataOutput = "Output.txt";
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         LoadFlags();
         LoadCountries();
         PlaceFlags();
@@ -201,27 +203,29 @@ public class Flags : MonoBehaviour {
 
     public void submitButton() {
         ConationCanvas.SetActive(false);
-        Debug.Log(ConationSlider.value);
+        sliderValue.Add((int)ConationSlider.value);
+        //Debug.Log(ConationSlider.value);
     }
 
-    public static void SaveToFile() {
-        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "anwsers.txt");
+    public void quitButton() {
+        sliderValue.Add((int)ConationSlider.value);
+        SaveToFile();
+        Application.Quit();
+    }
+    
+    public void SaveToFile() {
 
-        sw.WriteLine("Generated table of 1 to 10");
-        sw.WriteLine("");
+        StreamWriter sw = new StreamWriter(Application.dataPath + DataOutput);
 
-        for (int i = 1; i <= 10; i++)
-        {
-            for (int j = 1; j <= 10; j++)
-            {
-                sw.WriteLine("{0}x{1}= {2}", i, j, (i * j));
-            }
-
-            sw.WriteLine("====================================");
+        sw.WriteLine("Cheat button was clicked: " + showAnwserClicked);
+        
+        foreach (float f in sliderValue) {
+            sw.WriteLine("The conation value was: " + f);
         }
 
-        sw.WriteLine("Table successfully written to file!");
-
+        sw.WriteLine("Amount of question asked was: " + totalAnwseredQuestion);
+        sw.WriteLine("Score was: " + flagScore);
+        sw.Flush();
         sw.Close();
     }
 }
